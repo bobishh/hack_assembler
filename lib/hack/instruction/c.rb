@@ -1,5 +1,6 @@
 module Hack
   module Instruction
+    # c instruction class
     class C
       attr_reader :dest, :cmp, :jmp
 
@@ -7,11 +8,6 @@ module Hack
         @dest = dest
         @cmp = cmp
         @jmp = jmp
-      end
-
-      class << self
-        def from_string
-        end
       end
     end
   end

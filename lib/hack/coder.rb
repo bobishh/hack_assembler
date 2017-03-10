@@ -1,33 +1,19 @@
 module Hack
-  # encodes commands to machine code
+  # translates commands to machine code
   class Coder
-    JUMP_TABLE = {
-      nil: '000',
-      JGT: '001',
-      JEQ: '010',
-      JGE: '011',
-      JLT: '100',
-      JNE: '101',
-      JLE: '110',
-      JMP: '111'
-    }.freeze
+    def initialize(instructions, symbol_table)
+      @instructions = instructions
+      @symbol_table = symbol_table
+    end
 
-    DEST_TABLE = {
-      null: '000',
-      M:    '001',
-      D:    '010',
-      MD:   '011',
-      A:    '100',
-      AM:   '101',
-      AD:   '110',
-      AMD:  '111'
-    }
+    def code
+      @code ||= translate(@instructions)
+    end
 
-    COMP_TABLE = {
-    }.freeze
+    private
 
-    def initialize
-      @symbol_table = {}
+    def translate(instructions)
+      # translate instructions to code
     end
   end
 end
