@@ -12,14 +12,14 @@ describe Hack::Parser do
   let(:parsed) do
     [
       Hack::Instruction::A.new(2),
-      Hack::Instruction::C.new(dest: 'D', cmp: 'A', jmp: nil),
+      Hack::Instruction::C.new(dest: 'D', cmp: 'A', jmp: ''),
       Hack::Instruction::A.new(3),
-      Hack::Instruction::C.new(dest: 'D', cmp: 'D+A', jmp: nil),
+      Hack::Instruction::C.new(dest: 'D', cmp: 'D+A', jmp: ''),
       Hack::Instruction::A.new(0),
-      Hack::Instruction::C.new(dest: 'M', cmp: 'D', jmp: nil),
+      Hack::Instruction::C.new(dest: 'M', cmp: 'D', jmp: ''),
       Hack::Instruction::A.new(6),
-      Hack::Instruction::C.new(dest: 'D', cmp: 0, jmp: 'JMP')
-    ]
+      Hack::Instruction::C.new(dest: 'D', cmp: '', jmp: 'JMP')
+    ].map(&:to_s)
   end
 
   describe '#prepare' do
@@ -30,7 +30,7 @@ describe Hack::Parser do
 
   describe '#parsed' do
     it 'returns commands array' do
-      expect(subject.parsed).to eq(parsed)
+      expect(subject.parsed.map(&:to_s)).to eq(parsed)
     end
   end
 end

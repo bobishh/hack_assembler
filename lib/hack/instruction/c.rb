@@ -9,6 +9,10 @@ module Hack
         @cmp = cmp
         @jmp = jmp
       end
+
+      def to_s
+        "dest=#{@dest}, cmp=#{@cmp}, @jmp=#{@jmp}"
+      end
     end
   end
 end
