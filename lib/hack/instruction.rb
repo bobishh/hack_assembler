@@ -5,7 +5,7 @@ module Hack
   # module for building instructions
   module Instruction
     A_REGEX = /\@(?<value>[\w\d]+)/
-    C_REGEX = /(?<dest>[AMD]*)=?(?<cmp>[^;]*);?(?<jmp>[JMPGELT]*)/
+    C_REGEX = /(?<dest>[AMD]*)=?(?<cmp>[^;]*);?(?<jmp>[JMPGELTQ]*)/
 
     class << self
       def build(line)

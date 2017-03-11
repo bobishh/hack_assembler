@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'hack/assembler'
 
 describe Hack::Assembler do
-  let(:subject) { described_class.new('input.asm')}
+  let(:subject) { described_class.new('input.asm') }
 
   describe 'initialization' do
     it 'initializes with default output file name if none given' do
@@ -10,7 +10,7 @@ describe Hack::Assembler do
     end
 
     describe 'with outfile' do
-      let(:subject) { described_class.new('input.asm', 'output.hack')}
+      let(:subject) { described_class.new('input.asm', 'output.hack') }
 
       it 'returns predefined filename' do
         expect(subject.output_filename).to eq('output.hack')

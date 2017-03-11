@@ -1,3 +1,4 @@
+$:.unshift File.dirname(__FILE__)
 require 'hack/assembler'
 
 module Hack

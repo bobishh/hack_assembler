@@ -6,10 +6,6 @@ module Hack
     VAR_REGEX = /\@(?<name>\w+)/
     REGISTER_REGEX = /R(?<register_number>\d+)/
 
-    def table
-      @labels
-    end
-
     def initialize
       @vars = {}
       @labels = {}
@@ -51,7 +47,7 @@ module Hack
     end
 
     def next_var
-      (@vars.values.sort.last || 0) + 1
+      (@vars.values.sort.last || 15) + 1
     end
 
     def register_var?(name)
