@@ -1,29 +1,27 @@
-require 'pry'
-
 module Hack
   module Instruction
     # c instruction class
     class C
       JMP_TABLE = {
         '' => '000',
-        'JGT'=> '001',
-        'JEQ'=> '010',
-        'JGE'=> '011',
-        'JLT'=> '100',
-        'JNE'=> '101',
-        'JLE'=> '110',
-        'JMP'=> '111'
+        'JGT' => '001',
+        'JEQ' => '010',
+        'JGE' => '011',
+        'JLT' => '100',
+        'JNE' => '101',
+        'JLE' => '110',
+        'JMP' => '111'
       }.freeze
 
       DEST_TABLE = {
-        '' => '000',
-        'M'=>    '001',
-        'D'=>    '010',
-        'MD'=>   '011',
-        'A'=>    '100',
-        'AM'=>   '101',
-        'AD'=>   '110',
-        'AMD'=>  '111'
+        ''  =>    '000',
+        'M' =>    '001',
+        'D' =>    '010',
+        'A' =>    '100',
+        'MD' =>   '011',
+        'AM' =>   '101',
+        'AD' =>   '110',
+        'AMD' =>  '111'
       }.freeze
 
       CMP_TABLE = {
@@ -46,6 +44,7 @@ module Hack
         'D+A' => '0000010',
         'D+M' => '1000010',
         'D-A' => '0010011',
+        'D-M' => '1010011',
         'A-D' => '0000111',
         'M-D' => '1000111',
         'D&A' => '0000000',
@@ -74,8 +73,12 @@ module Hack
         JMP_TABLE[@jmp]
       end
 
+      def inspect
+        "dest: #@dest|cmp: #@cmp|jmp: #@jmp"
+      end
+
       def to_code
-        "111#{translate_dest}#{translate_cmp}#{translate_jmp}"
+        "111#{translate_cmp}#{translate_dest}#{translate_jmp}"
       end
 
       alias to_s to_code

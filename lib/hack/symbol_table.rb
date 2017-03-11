@@ -1,14 +1,17 @@
-require 'pry'
-
 module Hack
   # class for holding intermediate symbol values
   class SymbolTable
     VAR_REGEX = /\@(?<name>\w+)/
     REGISTER_REGEX = /R(?<register_number>\d+)/
 
+    PREDEFINED_LABELS = {
+      'SCREEN' => 16_384,
+      'KBD' => 24_576
+    }.freeze
+
     def initialize
       @vars = {}
-      @labels = {}
+      @labels = {}.merge(PREDEFINED_LABELS)
     end
 
     def put_label(name, value)
@@ -29,7 +32,7 @@ module Hack
       elsif label?(matched_name)
         infer_label(matched_name)
       else
-        new_var(matched_name)
+        infer_var(matched_name)
       end
     end
 
@@ -41,9 +44,14 @@ module Hack
       @labels[name] != nil
     end
 
+    def infer_var(name)
+      @vars[name] || new_var(name)
+    end
+
     def new_var(name)
-      @vars[name] = next_var
-      next_var
+      value = next_var
+      @vars[name] = value
+      value
     end
 
     def next_var

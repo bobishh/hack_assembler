@@ -6,7 +6,7 @@ require 'pry'
 module Hack
   # parser class
   class Parser
-    LABEL_REGEX = /\((?<name>\w+)\)/
+    LABEL_REGEX = /\((?<name>[.\w]+)\)/
     VAR_REGEX = /\@[a-zA-Z]+/
 
     def initialize(filename)
@@ -53,7 +53,8 @@ module Hack
 
     def prepare(filename)
       File.read(filename).split("\r\n").map do |row|
-        row.gsub(%r{\s+//.*}, '') if row != '' && row.match(/^[(AMD@]/)
+        wiped = row.gsub(/(\s+)/, '').gsub(%r{//.*}, '')
+        wiped if wiped != ''
       end.compact
     end
   end

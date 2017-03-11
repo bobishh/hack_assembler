@@ -5,7 +5,7 @@ module Hack
   # module for building instructions
   module Instruction
     A_REGEX = /\@(?<value>[\w\d]+)/
-    C_REGEX = /(?<dest>[AMD]*)=?(?<cmp>[^;]*);?(?<jmp>[JMPGELTQ]*)/
+    C_REGEX = /(?<dest>[AMD]*)=?(?<cmp>[^;]*);?(?<jmp>[JMNPGELTQ]*)/
 
     class << self
       def build(line)
@@ -23,9 +23,16 @@ module Hack
 
       def parse_c_instruction(line)
         matched = line.match(C_REGEX)
-        Instruction::C.new(dest: matched[:dest],
-                           cmp: matched[:cmp],
-                           jmp: matched[:jmp])
+        jmp = matched[:jmp]
+        dest = matched[:dest]
+        cmp = matched[:cmp]
+        if cmp == ''
+          cmp = dest
+          dest = ''
+        end
+        Instruction::C.new(dest: dest,
+                           cmp: cmp,
+                           jmp: jmp)
       end
     end
 
